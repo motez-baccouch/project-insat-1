@@ -39,13 +39,13 @@ security:
         - { path: ^/operateur, roles: ROLE_ADMIN }
         - { path: ^/profile , roles: ROLE_USER }
         - { path: ^/allusers, roles: ROLE_ADMIN }
-        - { path: ^/actualite, roles: ROLE_EDITEUR_SITE }
+        #- { path: ^/actualite, roles: ROLE_EDITEUR_SITE }
         - { path: ^/departement, roles: ROLE_EDITEUR_BASE }
         - { path: ^/download, roles: ROLE_EDITEUR_SITE }
         - { path: ^/emploi/du/temps/, roles: ROLE_EDITEUR_SITE}
         - { path: ^/enseignants , roles : ROLE_SCOLARITE}
-        - { path: ^/etudiant, roles : ROLE_ETUDIANT}
-        - { path: ^/etudaints, roles: ROLE_SCOLARITE}
+        #- { path: ^/etudiant, roles : ROLE_ETUDIANT}
+        #- { path: ^/etudaints, roles: ROLE_SCOLARITE}
         - { path: ^/fiche/notes, roles: [ROLE_SCOLARITE , ROLE_ENSEIGNANT] }
         - { path: ^/filiere, roles: ROLE_EDITEUR_BASE }
         - { path: ^/usermenu, roles: ROLE_USER}

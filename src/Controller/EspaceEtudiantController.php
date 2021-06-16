@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted('ROLE_ETUDIANT', message: 'No access')]
 #[Route('/etudiant')]
 class EspaceEtudiantController extends AbstractController
 {

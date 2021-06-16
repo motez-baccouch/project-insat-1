@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+#[IsGranted('ROLE_SCOLARITE', message: 'No access')]
 #[Route('/etudiants')]
 class EtudiantController extends AbstractController
 {

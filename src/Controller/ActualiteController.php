@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted('ROLE_EDITEUR_SITE', message: 'No access')]
 #[Route('/actualite')]
 class ActualiteController extends AbstractController
 {
