@@ -40,6 +40,7 @@ class Etudiant extends User
      */
     private $notes;
 
+
     public function __construct()
     {
         $this->moyennes = new ArrayCollection();

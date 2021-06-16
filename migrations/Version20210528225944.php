@@ -23,7 +23,7 @@ final class Version20210528225944 extends AbstractMigration
         $this->addSql('ALTER TABLE actualite CHANGE doc_id doc_id INT DEFAULT NULL, CHANGE photo_id photo_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE download CHANGE doc_id doc_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE emploi_du_temps CHANGE doc_id doc_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE fiche_notes1 CHANGE doc_id doc_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE fiche_notes CHANGE doc_id doc_id INT DEFAULT NULL');
     }
 
     public function down(Schema $schema): void

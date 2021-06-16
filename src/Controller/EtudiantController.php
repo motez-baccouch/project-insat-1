@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-#[Route('/etudiant')]
+#[Route('/etudiants')]
 class EtudiantController extends AbstractController
 {
     #[Route('/', name: 'etudiant_index', methods: ['GET'])]
@@ -21,7 +21,7 @@ class EtudiantController extends AbstractController
     {
         return $this->render('etudiant/index.html.twig', [
             'etudiants' => $etudiantRepository->findAll(),
-            'title'=>"etudiant"
+            'title'=>"Etudiants"
         ]);
     }
 
@@ -41,13 +41,16 @@ class EtudiantController extends AbstractController
             $entityManager->persist($etudiant);
             $entityManager->flush();
 
+            $this->addFlash('success',"Etudiant : ".$etudiant->getNom(). " ".  $etudiant->getPrenom() ." ajouté avec succès" );
+
+
             return $this->redirectToRoute('etudiant_index');
         }
 
         return $this->render('etudiant/new.html.twig', [
             'etudiant' => $etudiant,
             'form' => $form->createView(),
-            'title'=>"new"
+            'title'=>"Ajouter un etudiant"
         ]);
     }
 
@@ -56,7 +59,7 @@ class EtudiantController extends AbstractController
     {
         return $this->render('etudiant/show.html.twig', [
             'etudiant' => $etudiant,
-            'title'=>"show"
+            'title'=>'Etudiant : ' . $etudiant->getNom() . " " . $etudiant->getPrenom(),
         ]);
     }
 
@@ -72,13 +75,16 @@ class EtudiantController extends AbstractController
             $etudiant->setPassword($encoded);
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success',"Etudiant : ".$etudiant->getNom(). " ".  $etudiant->getPrenom() ." modifié avec succès" );
+
+
             return $this->redirectToRoute('etudiant_index');
         }
 
         return $this->render('etudiant/edit.html.twig', [
             'etudiant' => $etudiant,
             'form' => $form->createView(),
-            'title'=>"edit"
+            'title'=>"Modifier un etudiant"
         ]);
     }
 
@@ -86,6 +92,8 @@ class EtudiantController extends AbstractController
     public function delete(Request $request, Etudiant $etudiant): Response
     {
         if ($this->isCsrfTokenValid('delete'.$etudiant->getId(), $request->request->get('_token'))) {
+            $this->addFlash('warning',"Etudiant : ".$etudiant->getNom(). " ".  $etudiant->getPrenom() ." suprimé avec succès" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($etudiant);
             $entityManager->flush();

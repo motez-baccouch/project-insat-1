@@ -1,0 +1,47 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+
+    <form method="POST" id="my_form2">
+        <table  class="table" >
+            <thead>
+            <tr>
+                <th>num_inscription</th>
+                <th>nom</th>
+                <th>prenom</th>
+                <th>note</th>
+                <th>validation</th>
+            </tr>
+            </thead>
+            {% for etud in etudiants %}
+                <tr>
+                    <td>{{ etud.etudiant.numInscription }}</td>
+
+                    <td>{{ etud.etudiant.nom }}</td>
+                    <td>{{ etud.etudiant.prenom }}</td>
+                    {% if type|upper == "DS" %}
+                        <td>{{ etud.noteDS }}</td>
+                    {% endif %}
+                    {% if type|upper == "TP" %}
+                        <td>{{ etud.noteTp }}</td>
+                    {% endif %}
+                    {% if type|upper == "EXAMEN" %}
+                        <td>{{ etud.noteExamen }}</td>
+                    {% endif %}
+                    <td>
+                        {% if  (type|upper == "DS" and etud.dsValid) or (type|upper == "TP" and etud.tpValid) or (type|upper == "EXAM" and etud.examenValid)   %}
+                        <input class="form-check-input" type="checkbox" id="my_form2" name={{etud.etudiant.numInscription}} checked>
+                        {% else %}
+                            <input class="form-check-input" type="checkbox" id="my_form2" name={{etud.etudiant.numInscription}} >
+                        {% endif %}
+
+
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+        </table>
+        <button class="btn btn-primary form-btn" type="submit" class="btn btn-default">Validate</button>
+    </form>
+{% endblock %}

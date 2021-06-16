@@ -1,0 +1,45 @@
+<table class="table note-table">
+    <thead>
+    <tr>
+        <th>Etudiant</th>
+        <th>DS</th>
+        <th>TP</th>
+        <th>Examen</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set notCheck = true %}
+
+    {% for note in notes %}
+        {% set anonyme =  note.etudiant.id != etudiant.id %}
+        <tr {% if not anonyme %}
+                class="selected"
+            {% endif %}>
+            {% if not anonyme %}
+            <td>{{ note.etudiant.nom ~ " " ~ note.etudiant.prenom}}</td>
+            {% else %}
+            <td>Anonyme</td>
+            {% endif%}
+            <td>
+                {% if (notCheck or note.dsValid) %}
+                    {{ note.noteDS }}
+                {% endif %}
+            </td>
+            <td>
+                {% if(notCheck or note.tpValid) %}
+                    {{ note.noteTp }}
+                {% endif %}
+            </td>
+            <td>
+                {% if (notCheck or note.examenValid) %}
+                    {{ note.noteExamen }}
+                {% endif %}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

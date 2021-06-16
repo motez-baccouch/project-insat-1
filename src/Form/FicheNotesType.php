@@ -30,9 +30,15 @@ class FicheNotesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choixMatieres = [];
+
         if($fiche = $options['data'] ?? null){
-            if( $matiere = $fiche->getMatiere() ?? null)
-            $choixMatieres = FormHelper::getMatieres($matiere->getSemestre(), $matiere->getFiliere(), $matiere->getNiveau(), $this->manager);
+            if ($choices = $fiche->getTmpMatieresChoices() ?? null)
+                $choixMatieres = $choices;
+            else if( $matiere = $fiche->getMatiere() ?? null)
+                $choixMatieres = FormHelper::getMatieres($matiere->getSemestre(),
+                    $matiere->getFiliere(),
+                    $matiere->getNiveau(),
+                    $this->manager);
         }
 
         $builder->add('tmpSemestre', ChoiceType::class, [
@@ -55,9 +61,13 @@ class FicheNotesType extends AbstractType
                 'choices' => $choixMatieres,
                 'placeholder' => 'Sélectionner une matiére',
                 'getter' => function (FicheNotes $ficheNotes, FormInterface $form): int {
-                return 0;
+                    $matiere = $ficheNotes->getMatiere();
+                    return !empty($matiere) ? $matiere->getId() : 0;
                 },
                 'setter' => function (FicheNotes $ficheNotes, $matiere, FormInterface $form) {
+                    //dd($matieres);
+                    if(!empty($matieres))
+                        $ficheNotes->setMatiere($this->manager->getRepository(MatiereNiveauFiliere::class)->find($matiere));
                 },
             ]);
         FormHelper::addPdfFileInput($builder, 'doc', 'Fiche des Notes')
@@ -76,6 +86,7 @@ class FicheNotesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => FicheNotes::class,
+            'validation-groups' => false
         ]);
     }
 

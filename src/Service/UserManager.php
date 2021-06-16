@@ -85,8 +85,8 @@ class UserManager
         if ($this->isAdmin())
         {
             $menuSection = new MenuSection("Administration");
-            $menuSection->addMenuItem(new MenuItem("Les Operateurs", "users_index"));
-            $menuSection->addMenuItem(new MenuItem("Creer un operateur", "operateur_new"));
+            $menuSection->addMenuItem(new MenuItem("Opérateurs", "operateur_index"));
+            $menuSection->addMenuItem(new MenuItem("Creer un opérateur", "operateur_new"));
 
             array_push($menuSections, $menuSection);
         }
@@ -116,17 +116,16 @@ class UserManager
         if ($this->isValidateur())
         {
             $menuSection = new MenuSection("Validation");
-            $menuSection->addMenuItem(new MenuItem("Valider notes", ""))
-                ->addMenuItem(new MenuItem("Valider moyennes", ""))
-                ->addMenuItem(new MenuItem("Scores", ""));
+            $menuSection->addMenuItem(new MenuItem("Valider les notes", "validateur"))
+                ->addMenuItem(new MenuItem("Valider les moyennes", "filiere"));
             array_push($menuSections, $menuSection);
         }
         if ($this->isScolarite())
         {
             $menuSection = new MenuSection("Scolarité");
-            $menuSection->addMenuItem(new MenuItem("Saisie des notes", ""))
-                ->addMenuItem(new MenuItem("Etudiants", ""))
-                ->addMenuItem(new MenuItem("Enseignants",""))
+            $menuSection->addMenuItem(new MenuItem("Saisie des notes", "scolarite"))
+                ->addMenuItem(new MenuItem("Etudiants", "etudiant_index"))
+                ->addMenuItem(new MenuItem("Enseignants","enseignant_index"))
                 ->addMenuItem(new MenuItem("Fiches des notes","fiche_notes_index"));
 
             array_push($menuSections, $menuSection);
@@ -135,9 +134,9 @@ class UserManager
         if ($this->isEtudiant())
         {
             $menuSection = new MenuSection("Espace étudiant");
-            $menuSection->addMenuItem(new MenuItem("Notifications", ""))
-                ->addMenuItem(new MenuItem("Notes", ""))
-                ->addMenuItem(new MenuItem("Déliberations",""));
+            $menuSection->addMenuItem(new MenuItem("Relevé de notes", "etudiant_releve"))
+                ->addMenuItem(new MenuItem("Notes par matiere", "etudiant_notes"))
+                ->addMenuItem(new MenuItem("Historique","etudiant_historique"));
 
             array_push($menuSections, $menuSection);
 

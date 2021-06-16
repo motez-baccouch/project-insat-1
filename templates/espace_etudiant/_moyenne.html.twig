@@ -1,0 +1,16 @@
+{% if moyenne is defined and moyenne %}
+{% if moyenne.sem1Valid or moyenne.sem2Valid %}
+<h2>Moyennes</h2>
+    <ul>
+        {% if moyenne.sem1Valid  %}
+         <li>Semestre 1 : {{ moyenne.sem1 }}</li>
+        {% endif %}
+        {% if moyenne.sem2Valid  %}
+            <li>Semestre 2 : {{ moyenne.sem2 }}</li>
+        {% endif %}
+        {% if moyenne.sem1Valid and moyenne.sem2Valid %}
+            <li>Annuelle : {{ moyenne.annuelle }}</li>
+        {% endif %}
+    </ul>
+{% endif %}
+{% endif %}

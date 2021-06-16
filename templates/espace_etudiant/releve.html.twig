@@ -1,0 +1,10 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+    {{ include('espace_etudiant/_releve.html.twig', {'matieres': semestre1, 'semestre' : 1}) }}
+<br/>
+    {{ include('espace_etudiant/_releve.html.twig', {'matieres': semestre2, 'semestre' : 2}) }}
+<br/>
+    {{ include('espace_etudiant/_moyenne.html.twig',{'moyenne': moyenne})}}
+
+{% endblock %}

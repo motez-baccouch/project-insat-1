@@ -7,6 +7,30 @@
                 <th>Id</th>
                 <td>{{ fiche_note.id }}</td>
             </tr>
+            {% if fiche_note.matiere is defined and fiche_note.matiere %}
+            <tr>
+                <th>Semestre</th>
+                <td>{{ fiche_note.matiere.semestre }}</td>
+            </tr>
+            <tr>
+                <th>Niveau</th>
+                <td>{{ fiche_note.matiere.niveau.getNiveauName2(fiche_note.matiere.filiere) }}</td>
+            </tr>
+            <tr>
+                <th>Matiere</th>
+                <td>{{  fiche_note.matiere.matiere.nom }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Document</th>
+                <td>
+                    {% if fiche_note.doc is defined and fiche_note.doc %}
+                        <a target="_blank" href="{{ asset(fiche_note.doc.getFullUrl()) }}">
+                            <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
             <tr>
                 <th>Commentaire</th>
                 <td>{{ fiche_note.commentaire }}</td>
@@ -14,9 +38,13 @@
         </tbody>
     </table>
 
-    <a href="{{ path('fiche_notes_index') }}">back to list</a>
+    {% if userManager.isEnseignant() %}
+    <a class="btn btn-primary form-btn" href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
+    <br>
+    {% endif %}
+    <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_index') }}">back to list</a>
 
-    <a href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
-
+    {% if userManager.isEnseignant() %}
     {{ include('fiche_notes/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

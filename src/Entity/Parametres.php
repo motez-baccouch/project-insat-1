@@ -114,6 +114,6 @@ class Parametres
     }
 
     public function getAnneeScolaireCouranteFormatted(): string{
-        return ($this->anneScolaireCourante - 1)  ." / ". $this->anneScolaireCourante;
+        return Tools::getAnneeScolaireFormatted($this->anneScolaireCourante);
     }
 }

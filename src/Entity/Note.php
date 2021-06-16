@@ -64,6 +64,8 @@ class Note
      */
     private $etudiant;
 
+    private $tmpNote;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,7 +88,7 @@ class Note
         return $this->noteDS;
     }
 
-    public function setNoteDS(float $noteDS): self
+    public function setNoteDS(?float $noteDS): self
     {
         $this->noteDS = $noteDS;
 
@@ -98,7 +100,7 @@ class Note
         return $this->noteTp;
     }
 
-    public function setNoteTp(float $noteTp): self
+    public function setNoteTp(?float $noteTp): self
     {
         $this->noteTp = $noteTp;
 
@@ -110,7 +112,7 @@ class Note
         return $this->noteExamen;
     }
 
-    public function setNoteExamen(float $noteExamen): self
+    public function setNoteExamen(?float $noteExamen): self
     {
         $this->noteExamen = $noteExamen;
 
@@ -176,4 +178,18 @@ class Note
 
         return $this;
     }
+
+
+    public function getTmpNote(): ?float{
+        return $this->tmpNote;
+    }
+
+    /**
+     * @param mixed $tmpNote
+     */
+    public function setTmpNote($tmpNote): void
+    {
+        $this->tmpNote = $tmpNote;
+    }
+
 }

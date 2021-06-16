@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Enseignant;
 use App\Entity\FicheNotes;
 use App\Form\FicheNotesType;
+use App\Repository\EnseignantRepository;
 use App\Repository\FicheNotesRepository;
+use App\Utilities\FormHelper;
+use App\Utilities\Tools;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,32 +22,54 @@ class FicheNotesController extends AbstractController
     public function index(FicheNotesRepository $ficheNotesRepository): Response
     {
         return $this->render('fiche_notes/index.html.twig', [
-            'fiche_notes' => $ficheNotesRepository->findAll(),
+            'fiche_notes' => array_reverse($ficheNotesRepository->findAll()),
             'title' => 'Fiches des notes',
         ]);
     }
 
+
     #[Route('/new', name: 'fiche_notes_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, EnseignantRepository $enseignantRepository): Response
     {
         $ficheNote = new FicheNotes();
         $form = $this->createForm(FicheNotesType::class, $ficheNote);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $ficheNote->setEnseignant($this->getUser());
+        if ($form->isSubmitted() ) {
+            $ficheNote->setEnseignant($enseignantRepository->findAll()[0]);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ficheNote);
             $entityManager->flush();
 
-            return $this->redirectToRoute('enseignant_fiches');
+            return $this->redirectToRoute('fiche_notes_index');
         }
 
         return $this->render('fiche_notes/new.html.twig', [
             'fiche_note' => $ficheNote,
             'form' => $form->createView(),
-            'title' => 'Ajouter une Fiche des notes',
+            'title' => 'Ajouter une fiche des notes',
         ]);
+    }
+
+    #[Route('/refreshMatieres', name: 'refreshMatieres', methods: ['GET', 'POST'])]
+    public function refreshMatieres(Request $request): Response
+    {
+        $ficheNote = new FicheNotes();
+        $form = $this->createForm(FicheNotesType::class, $ficheNote);
+        $form->handleRequest($request);
+
+        $matieres = FormHelper::getMatieresEx(
+            $ficheNote->getTmpSemestre(), $ficheNote->getTmpFiliereNiveau(),
+            $this->getDoctrine()->getManager());
+
+        $ficheNote->setTmpMatieresChoices($matieres);
+        $form = $this->createForm(FicheNotesType::class, null, ['data'=>$ficheNote]);
+
+        return $this->render('fiche_notes/select.html.twig', [
+            'form' => $form->createView(),
+            'title' => 'Ajouter une fiche des notes',
+        ]);
+
     }
 
     #[Route('/{id}', name: 'fiche_notes_show', methods: ['GET'])]
@@ -61,10 +88,10 @@ class FicheNotesController extends AbstractController
         $form = $this->createForm(FicheNotesType::class, $ficheNote);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('enseignant_fiches');
+            return $this->redirectToRoute('fiche_notes_index');
         }
 
         return $this->render('fiche_notes/edit.html.twig', [
@@ -78,6 +105,7 @@ class FicheNotesController extends AbstractController
     public function delete(Request $request, FicheNotes $ficheNote): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ficheNote->getId(), $request->request->get('_token'))) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($ficheNote);
             $entityManager->flush();

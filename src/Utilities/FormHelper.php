@@ -8,6 +8,7 @@ use App\Entity\Document;
 use App\Entity\Filiere;
 use App\Entity\MatiereNiveauFiliere;
 use App\Entity\Niveau;
+use App\Entity\Note;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Self_;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -88,9 +89,15 @@ class FormHelper
             ];
     }
 
-    public static function getMatieres($semstre, $filiere, $niveau, EntityManagerInterface $manager): array{
+    public static function getMatieresEx($semestre, $exId, EntityManagerInterface $manager): array{
+        $filiereNiveau =  Tools::splitExId($exId);
+
+        return Self::getMatieres($semestre, $filiereNiveau['masterId'], $filiereNiveau['slaveId'], $manager);
+    }
+
+    public static function getMatieres($semestre, $filiere, $niveau, EntityManagerInterface $manager): array{
         $matieres =$manager->getRepository(MatiereNiveauFiliere::class)
-            ->findMatieres($semstre, $filiere, $niveau);
+            ->findMatieres($semestre, $filiere, $niveau);
 
         $choixMatieres = [];
         foreach ($matieres as $matiere){
@@ -100,4 +107,32 @@ class FormHelper
         return $choixMatieres;
     }
 
+    public static function getAnneesScolaire($etudiant,  EntityManagerInterface $manager){
+        $annees =$manager->getRepository(Note::class)->findAnnneByEtudiant($etudiant);
+        $choixAnnees = [];
+        foreach ($annees as $annee){
+            $year = $annee['anneScolaire'];
+            $choixAnnees[$year] = $year;
+        }
+        return $choixAnnees;
+    }
+
+    public static function getGroupedInputSemestreMatiere($filiere, $niveau, EntityManagerInterface $manager): array{
+
+        $semestres = self::getSemestres();
+
+        $choixMatieres = array();
+        foreach ($semestres as $key => $semestre){
+            $sem = intval($semestre);
+            $matieres = $manager->getRepository(MatiereNiveauFiliere::class)
+                ->findMatieres($sem, $filiere, $niveau);
+            $arr = array();
+            foreach ($matieres as $matiere) {
+                    $arr[$matiere->getMatiere()->getNom()] = $matiere->getId();
+            }
+            $choixMatieres[$key] = $arr;
+        }
+
+        return $choixMatieres;
+    }
 }

@@ -1470,3 +1470,8 @@ div.download-list li a:hover{
 div.download-list li a i{
     margin: 5px;
 }
+
+/****************************/
+.note-table tr.selected td{
+    background-color: #ADFF2F;
+}

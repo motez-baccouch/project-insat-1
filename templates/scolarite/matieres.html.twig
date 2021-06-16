@@ -2,8 +2,6 @@
 
 
 {% block body %}
-
-
     {% for mat,ex in matiere %}
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
@@ -15,33 +13,15 @@
             <div id="collapse{{ mat }}" class="accordion-collapse collapse " aria-labelledby="headingOne"
                  data-bs-parent="#accordionExample2">
                 <div class="accordion-body">
-
-
-                                        {% for key,typeEx in ex %}
-
-                                        <div class="list-group">
-                                                        <a href="{{ path('notes',{'semester':semester, 'filiere':filiere , 'niveau':niveau , 'matiere':mat , 'type':typeEx }) }}" class="list-group-item list-group-item-action" > {{ typeEx }}</a>
-
-                                        </div>
-                                        {% endfor %}
-
-
-
-
-                   
-
-
+                    {% for key,typeEx in ex %}
+                        <div class="list-group">
+                            <a href="{{ path('notes',{'semester':semester, 'filiere':filiere , 'niveau':niveau , 'matiere':mat , 'type':typeEx }) }}"
+                               class="list-group-item list-group-item-action"> {{ typeEx }}</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     {% endfor %}
-
-
-
-
-
-
-
-
 
 {% endblock %}

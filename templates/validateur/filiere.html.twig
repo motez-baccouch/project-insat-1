@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+
+                    <div class="accordion" id="accordionExample2">
+                        {% for fil,niveau in filieres %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ fil }}" aria-expanded="true" aria-controls="collapse{{ fil }}">
+                                        {{ fil }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ fil }}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample2">
+                                    <div class="accordion-body">
+
+                                        {% for key,niv in niveau %}
+
+
+                                                <div class="list-group">
+
+                                                <span class="list-group-item list-group-item-action">
+                                                    {{ fil }} {{ niv }}
+                                                     <a  href={{ path('moyenne', {'filiere':fil , 'niveau':niv ,'semestre':1}) }}  role="button"  class="btn btn-danger float-end" style="margin: 2px">Calculer moyenne semester 1</a>
+                                                     <a  href={{ path('moyenne', {'filiere':fil , 'niveau':niv , 'semestre':2}) }}  role="button"  class="btn btn-danger float-end" style="margin: 2px">Calculer moyenne semester 2</a>
+                                                </span>
+
+
+
+
+                                                </div>
+
+
+                                        {% endfor %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+{% endblock %}

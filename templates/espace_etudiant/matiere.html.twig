@@ -1,0 +1,23 @@
+{% extends 'jQuery.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    {{ include('espace_etudiant/_matiere.html.twig', {'notes': notes}) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $("#matiere_selection_matiere").on("change", function(){
+                this.form.submit();
+            });
+        });
+
+    </script>
+{% endblock %}

@@ -116,4 +116,13 @@ class HomePageController extends AbstractController
         return $this->redirectToRoute("homePage");
     }
 
+    /**
+     * @Route("/accessdenied", name="access_denied")
+     */
+    public function access(): Response
+    {
+        return $this->render('HomePage/access_denied.html.twig', [
+            'title' => '',
+        ]);    }
+
 }

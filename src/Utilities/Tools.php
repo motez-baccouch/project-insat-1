@@ -10,7 +10,7 @@ class Tools
 {
     private const ID_OFFSET = 10000;
 
-    public static function strToHtml(string $text) : string{
+    public static function strToHtml(?string $text) : string{
         return str_replace(array("\r\n", "\n", "\r"), '<br/>', $text);
     }
 
@@ -18,8 +18,14 @@ class Tools
         return $masterId * self::ID_OFFSET + $slaveId;
     }
 
-    public static function splitExId (int $exId): array{
-        return ["masterId" => intdiv($exId, self::ID_OFFSET), "slaveId" => ($exId % Self::ID_OFFSET)];
+    public static function splitExId (?int $exId): array{
+        $id = $exId ?? 0;
+
+        return ["masterId" => intdiv($id, self::ID_OFFSET), "slaveId" => ($id % Self::ID_OFFSET)];
+    }
+
+    public static function getAnneeScolaireFormatted($annee): string{
+        return ($annee - 1)  ." / ". $annee;
     }
 
 }

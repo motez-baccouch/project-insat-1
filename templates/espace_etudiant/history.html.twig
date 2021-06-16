@@ -1,0 +1,24 @@
+{% extends 'jQuery.html.twig' %}
+
+{% block body %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+
+    {{ include('espace_etudiant/_historique.html.twig', {'notes': semestre1, 'semestre' : 1}) }}
+    <br/>
+    {{ include('espace_etudiant/_historique.html.twig', {'notes': semestre2, 'semestre' : 2}) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $("#history_selection_annee").on("change", function(){
+                this.form.submit();
+            });
+        });
+
+    </script>
+{% endblock %}

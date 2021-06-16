@@ -36,9 +36,27 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/operateur, roles: ROLE_OPERATEUR }
+        - { path: ^/operateur, roles: ROLE_ADMIN }
         - { path: ^/profile , roles: ROLE_USER }
         - { path: ^/allusers, roles: ROLE_ADMIN }
+        - { path: ^/actualite, roles: ROLE_EDITEUR_SITE }
+        - { path: ^/departement, roles: ROLE_EDITEUR_BASE }
+        - { path: ^/download, roles: ROLE_EDITEUR_SITE }
+        - { path: ^/emploi/du/temps/, roles: ROLE_EDITEUR_SITE}
+        - { path: ^/enseignants , roles : ROLE_SCOLARITE}
+        - { path: ^/etudiant, roles : ROLE_ETUDIANT}
+        - { path: ^/etudaints, roles: ROLE_SCOLARITE}
+        - { path: ^/fiche/notes, roles: [ROLE_SCOLARITE , ROLE_ENSEIGNANT] }
+        - { path: ^/filiere, roles: ROLE_EDITEUR_BASE }
+        - { path: ^/usermenu, roles: ROLE_USER}
+        - { path: ^/link, roles: ROLE_EDITEUR_SITE}
+        - { path: ^/matiere, roles: ROLE_EDITEUR_BASE}
+        - { path: ^/matieres, roles: ROLE_EDITEUR_BASE}
+        - { path: ^/niveau, roles: ROLE_EDITEUR_BASE}
+        - { path: ^/parametres, roles: ROLE_EDITEUR_SITE}
+        - { path: ^/profile , roles: ROLE_USER}
+        - { path: ^/scolarite, roles: ROLE_SCOLARITE}
+        - { path: ^/users , roles: ROLE_ADMIN}
+        - { path: ^/validateur, roles: ROLE_VALIDATEUR}
 
-
-
+    access_denied_url: /accessdenied

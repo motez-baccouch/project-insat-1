@@ -45,6 +45,8 @@ class ActualiteController extends AbstractController
             $entityManager->persist($actualite);
             $entityManager->flush();
 
+            $this->addFlash('success',"Actualité ajoutée avec succès" );
+
             return $this->redirectToRoute('actualite_index');
         }
 
@@ -77,6 +79,8 @@ class ActualiteController extends AbstractController
             $entityManager->persist($actualite);
             $entityManager->flush();
 
+            $this->addFlash('success',"Actualité modifiée avec succès" );
+
             return $this->redirectToRoute('actualite_index');
         }
 
@@ -91,11 +95,13 @@ class ActualiteController extends AbstractController
     public function delete(Request $request, Actualite $actualite): Response
     {
         if ($this->isCsrfTokenValid('delete'.$actualite->getId(), $request->request->get('_token'))) {
+
+            $this->addFlash('warning',"Actualité supprimée avec succés" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($actualite);
             $entityManager->flush();
 
-            $this->addFlash('warning',"votre actualité est supprimée" );
         }
 
         return $this->redirectToRoute('actualite_index');

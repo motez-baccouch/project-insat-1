@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\MatiereNiveauFiliere;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,7 +21,24 @@ class MatiereNiveauFiliereRepository extends ServiceEntityRepository
     }
 
     public function findMatieres($semestre, $filiere, $niveau): array{
-        return $this->findBy(['semestre'=>$semestre, 'filiere'=>$filiere->getId(), 'niveau'=>$niveau->getId()]);
+        return $this->findBy(['semestre'=>$semestre, 'filiere'=>$filiere, 'niveau'=>$niveau]);
+    }
+
+    public function getReleve($etudiant, $anneeScolaire, $semestre)
+    {
+
+        $query = $this->createQueryBuilder('m')
+            ->select(['m', 'n'])
+            ->leftJoin('m.notes','n', Join::WITH, 'n.anneScolaire = ?4 and n.etudiant=?5')
+            ->where('m.semestre = ?1 and m.filiere = ?2 and m.niveau = ?3 ')
+            ->orderBy('m.ordre')
+            ->setParameter(1, $semestre)
+            ->setParameter(2, $etudiant->getFiliere()->getId())
+            ->setParameter(3, $etudiant->getNiveau()->getId())
+            ->setParameter(4, $anneeScolaire)
+            ->setParameter(5, $etudiant->getId());
+
+        return $query->getQuery()->getResult();
     }
 
 

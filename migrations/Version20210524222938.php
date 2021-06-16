@@ -27,7 +27,7 @@ final class Version20210524222938 extends AbstractMigration
         $this->addSql('CREATE TABLE emploi_du_temps (id INT AUTO_INCREMENT NOT NULL, doc_id INT NOT NULL, filiere_id INT NOT NULL, annee_scolaire INT NOT NULL, UNIQUE INDEX UNIQ_F86B32C1895648BC (doc_id), UNIQUE INDEX UNIQ_F86B32C1180AA129 (filiere_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE enseignant (id INT NOT NULL, departement_id INT NOT NULL, INDEX IDX_81A72FA1CCF9E01E (departement_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE etudiant (id INT NOT NULL, filiere_id INT NOT NULL, niveau_id INT NOT NULL, num_inscription INT NOT NULL, INDEX IDX_717E22E3180AA129 (filiere_id), INDEX IDX_717E22E3B3E9C81 (niveau_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE fiche_notes1 (id INT AUTO_INCREMENT NOT NULL, doc_id INT NOT NULL, enseignant_id INT NOT NULL, nom VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_7B9B4CB3895648BC (doc_id), INDEX IDX_7B9B4CB3E455FCC0 (enseignant_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE fiche_notes (id INT AUTO_INCREMENT NOT NULL, doc_id INT NOT NULL, enseignant_id INT NOT NULL, nom VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_7B9B4CB3895648BC (doc_id), INDEX IDX_7B9B4CB3E455FCC0 (enseignant_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE filiere (id INT AUTO_INCREMENT NOT NULL, filiere VARCHAR(255) NOT NULL, ordre INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE link (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, ordre VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE matiere (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -49,8 +49,8 @@ final class Version20210524222938 extends AbstractMigration
         $this->addSql('ALTER TABLE etudiant ADD CONSTRAINT FK_717E22E3180AA129 FOREIGN KEY (filiere_id) REFERENCES filiere (id)');
         $this->addSql('ALTER TABLE etudiant ADD CONSTRAINT FK_717E22E3B3E9C81 FOREIGN KEY (niveau_id) REFERENCES niveau (id)');
         $this->addSql('ALTER TABLE etudiant ADD CONSTRAINT FK_717E22E3BF396750 FOREIGN KEY (id) REFERENCES user (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE fiche_notes1 ADD CONSTRAINT FK_7B9B4CB3895648BC FOREIGN KEY (doc_id) REFERENCES document (id)');
-        $this->addSql('ALTER TABLE fiche_notes1 ADD CONSTRAINT FK_7B9B4CB3E455FCC0 FOREIGN KEY (enseignant_id) REFERENCES enseignant (id)');
+        $this->addSql('ALTER TABLE fiche_notes ADD CONSTRAINT FK_7B9B4CB3895648BC FOREIGN KEY (doc_id) REFERENCES document (id)');
+        $this->addSql('ALTER TABLE fiche_notes ADD CONSTRAINT FK_7B9B4CB3E455FCC0 FOREIGN KEY (enseignant_id) REFERENCES enseignant (id)');
         $this->addSql('ALTER TABLE matiere_niveau_filiere ADD CONSTRAINT FK_65EE9301F46CD258 FOREIGN KEY (matiere_id) REFERENCES matiere (id)');
         $this->addSql('ALTER TABLE matiere_niveau_filiere ADD CONSTRAINT FK_65EE9301180AA129 FOREIGN KEY (filiere_id) REFERENCES filiere (id)');
         $this->addSql('ALTER TABLE matiere_niveau_filiere ADD CONSTRAINT FK_65EE9301B3E9C81 FOREIGN KEY (niveau_id) REFERENCES niveau (id)');

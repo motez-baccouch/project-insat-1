@@ -5,9 +5,23 @@
     <script>
             $(document).ready(function(){
             $("#fiche_notes_tmpSemestre input, #fiche_notes_tmpFiliereNiveau").on("change", function(){
-                alert("xxx")
+                formData = new FormData(this.form)
+                $.ajax({
+                    url  : "{{ path('refreshMatieres') }}",
+                    type : "POST",
+                    cache: false,
+                    contentType : false, // you can also use multipart/form-data replace of false
+                    processData: false,
+                    data: formData,
+                    success:function(response){
+                        $('select#fiche_notes_matiere').replaceWith(response);
+                    },
+                    error: function (a,b,c){
+                        alert("error" + c);
+                    }
             });
         });
+            });
 
     </script>
 {% endblock %}

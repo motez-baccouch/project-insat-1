@@ -1,0 +1,49 @@
+<h2>
+    Semestre {{ semestre }}
+
+</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Matière</th>
+        <th>Coefficient</th>
+        <th>DS</th>
+        <th>TP</th>
+        <th>Examen</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for matiere in matieres %}
+        <tr>
+            <td>{{ matiere.matiere.nom }}</td>
+            <td>{{ matiere.coefficient }}</td>
+            {% set notCheck = true %}
+            {%  set hasnote = matiere.notes[0] is defined and matiere.notes[0] %}
+            {% if hasnote %}
+            {% set note = matiere.notes[0] %}
+            {% endif %}
+            <td>
+                {% if hasnote and (notCheck or note.dsValid) %}
+                    {{ note.noteDS }}
+                {% endif %}
+            </td>
+            <td>
+                {% if hasnote and (notCheck or note.tpValid) %}
+                    {{ note.noteTp }}
+                {% endif %}
+            </td>
+            <td>
+                {% if hasnote and (notCheck or note.examenValid) %}
+                    {{ note.noteExamen }}
+                {% endif %}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

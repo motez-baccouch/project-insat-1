@@ -39,6 +39,8 @@ class OperateurController extends AbstractController
             $entityManager->persist($operateur);
             $entityManager->flush();
 
+            $this->addFlash('success',"Opérateur : ".$operateur->getNom() . " " . $operateur->getPrenom() ." ajouté avec succès" );
+
             return $this->redirectToRoute('operateur_index');
         }
 
@@ -66,6 +68,9 @@ class OperateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success',"Opérateur : ".$operateur->getNom() . " " . $operateur->getPrenom() ." modifié avec succès" );
+
 
             return $this->redirectToRoute('operateur_index');
         }

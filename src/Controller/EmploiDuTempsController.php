@@ -97,7 +97,7 @@ class EmploiDuTempsController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$emploiDuTemp->getId(), $request->request->get('_token'))) {
 
             $this->addFlash('warning',"Emploi : ". $emploiDuTemp->getFiliere()->getFiliere()
-                . " semestre " . $emploiDuTemp->getSemestre()." est supprimé" );
+                . " semestre " . $emploiDuTemp->getSemestre()."  supprimé" );
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($emploiDuTemp);

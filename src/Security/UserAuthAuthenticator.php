@@ -73,7 +73,6 @@ class UserAuthAuthenticator extends AbstractFormLoginAuthenticator implements Pa
         if (!$user) {
             throw new UsernameNotFoundException('Email could not be found.');
         }
-
         return $user;
     }
 

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-#[Route('/enseignant')]
+#[Route('/enseignants')]
 class EnseignantController extends AbstractController
 {
     #[Route('/', name: 'enseignant_index', methods: ['GET'])]
@@ -20,7 +20,7 @@ class EnseignantController extends AbstractController
     {
         return $this->render('enseignant/index.html.twig', [
             'enseignants' => $enseignantRepository->findAll(),
-            'title'=>'enseignants'
+            'title'=>'Enseignants'
         ]);
     }
 
@@ -35,10 +35,13 @@ class EnseignantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password=$form->get('password')->getData();
             $encoded=$encoder->encodePassword($enseignant,(string)$password);
-            $enseignant>setPassword($encoded);
+            $enseignant->setPassword($encoded);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enseignant);
             $entityManager->flush();
+
+            $this->addFlash('success',"Enseignant : ".$enseignant->getNom(). " ".  $enseignant->getPrenom() ." ajouté avec succès" );
+
 
             return $this->redirectToRoute('enseignant_index');
         }
@@ -46,7 +49,7 @@ class EnseignantController extends AbstractController
         return $this->render('enseignant/new.html.twig', [
             'enseignant' => $enseignant,
             'form' => $form->createView(),
-            'title'=>'ajouter un enseignant'
+            'title'=>'Ajouter un enseignant'
         ]);
     }
 
@@ -55,7 +58,7 @@ class EnseignantController extends AbstractController
     {
         return $this->render('enseignant/show.html.twig', [
             'enseignant' => $enseignant,
-            'title'=>'enseignant : ' . $enseignant->getNom() . " " . $enseignant->getPrenom(),
+            'title'=>'Enseignant : ' . $enseignant->getNom() . " " . $enseignant->getPrenom(),
         ]);
     }
 
@@ -71,13 +74,16 @@ class EnseignantController extends AbstractController
             $enseignant->setPassword($encoded);
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success',"Enseignant : ".$enseignant->getNom(). " ".$enseignant->getPrenom()." modifié avec succès" );
+
+
             return $this->redirectToRoute('enseignant_index');
         }
 
         return $this->render('enseignant/edit.html.twig', [
             'enseignant' => $enseignant,
             'form' => $form->createView(),
-            'title'=>'modifier un enseignant'
+            'title'=>'Modifier un enseignant'
         ]);
     }
 
@@ -85,6 +91,8 @@ class EnseignantController extends AbstractController
     public function delete(Request $request, Enseignant $enseignant): Response
     {
         if ($this->isCsrfTokenValid('delete'.$enseignant->getId(), $request->request->get('_token'))) {
+            $this->addFlash('warning',"Enseignant : ".$enseignant->getNom(). " ". $enseignant->getPrenom() ." suprimé avec succès" );
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($enseignant);
             $entityManager->flush();

@@ -6,32 +6,54 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Commentaire</th>
-                {% if userManager.isEnseignant() %}
-                <th>actions</th>
+                <th>Semestre</th>
+                <th>Niveau</th>
+                <th>Matiere</th>
+                {% if not userManager.isEnseignant() %}
+                <th>Enseignant</th>
                 {% endif %}
+                <th>Document</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for fiche_note in fiche_notes %}
             <tr>
                 <td>{{ fiche_note.id }}</td>
-                <td>{{ fiche_note.commentaire }}</td>
-                {% if userManager.isEnseignant() %}
-                <td>
-                    <a href="{{ path('fiche_notes_show', {'id': fiche_note.id}) }}">show</a>
-                    <a href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
-                </td>
+                {% if fiche_note.matiere is defined and fiche_note.matiere %}
+                <td>{{ fiche_note.matiere.semestre }}</td>
+                <td>{{ fiche_note.matiere.niveau.getNiveauName2(fiche_note.matiere.filiere) }}</td>
+                <td>{{ fiche_note.matiere.matiere.nom }}</td>
+                {% else %}
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                 {% endif %}
+                {% if not userManager.isEnseignant() %}
+                    <td>{{ fiche_note.enseignant.nom ~ " " ~ fiche_note.enseignant.prenom  }}</td>
+                {% endif %}
+                <td>
+                    {% if fiche_note.doc is defined and fiche_note.doc %}
+                        <a target="_blank" href="{{ asset(fiche_note.doc.getFullUrl()) }}">
+                            <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_show', {'id': fiche_note.id}) }}">show</a>
+                    {% if userManager.isEnseignant() %}
+                    <a class="btn btn-secondary form-btn" href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
+                    {% endif %}
+                </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     {% if userManager.isEnseignant() %}
-    <a href="{{ path('fiche_notes_new') }}">Create new</a>
+    <a  class="btn btn-primary form-btn" href="{{ path('fiche_notes_new') }}">Create new</a>
     {% endif %}
 {% endblock %}

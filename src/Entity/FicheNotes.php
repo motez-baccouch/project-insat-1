@@ -41,7 +41,12 @@ class FicheNotes
     private $matiere;
 
     private $tmpFiliereNiveau;
+
     private $tmpSemestre;
+
+    private $tmpMatieresChoices;
+
+
 
     public function getId(): ?int
     {
@@ -132,5 +137,20 @@ class FicheNotes
         $this->tmpSemestre = $tmpSemestre;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTmpMatieresChoices(): ?array
+    {
+        return $this->tmpMatieresChoices;
+    }
+
+    /**
+     * @param mixed $tmpMatieresChoices
+     */
+    public function setTmpMatieresChoices($tmpMatieresChoices): void
+    {
+        $this->tmpMatieresChoices = $tmpMatieresChoices;
+    }
 
 }
