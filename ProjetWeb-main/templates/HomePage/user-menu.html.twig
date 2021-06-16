@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block htmlCss %}no-top-margin{% endblock %}
+
+{% block body %}
+    <div class="main-user-menu">
+
+        <div  class="tabs" data-aos="fade-up">
+
+        {%  set userMenu = userManager.userMenu() %}
+        {%  set i = 1 %}
+            {% set first = 1 %}
+        <div class="tab-content ">
+            {%  for section in userMenu.sections %}
+                    <div class="tab-pane {% if i == 1 %} active show{% endif %}" id="tab-{{ i }}">
+                        <div class="inner-tab-pane ">
+                        {%  for item in section.menuItems %}
+                            <a class="item" href="{{ path(item.routeName, item.parameters) }}">
+                                <i><iconify-icon data-icon="fluent:document-bullet-list-24-filled"></iconify-icon></i>
+                                <span class="text" >{{ item.title }}</span>
+                            </a>
+                        {% endfor %}
+                            {% if first == 1 %}
+                                <a class="item" href="{{ path("profil") }}">
+                                    <i><iconify-icon data-icon="fa-solid:id-card"></iconify-icon></i>
+                                    <span class="text" >Mon profil</span>
+                                </a>
+                                {% set first = 999 %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% set i = i + 1 %}
+            {% endfor %}
+         </div>
+
+
+
+    <ul class="nav nav-tabs col d-flex sections">
+        {%  set i = 1 %}
+        {%  for section in userMenu.sections %}
+        <li class="nav-item">
+            <a class="{% if i == 1 %} active show{% endif %}" data-bs-toggle="tab" data-bs-target="#tab-{{ i }}">
+                               {{ section.title }}
+            </a>
+        </li>
+            {% set i = i + 1 %}
+        {% endfor %}
+    </ul>
+
+    </div>
+    </div>
+
+{% endblock %}

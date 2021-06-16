@@ -1,0 +1,109 @@
+{% extends 'jQuery.html.twig' %}
+
+{% block body %}
+
+    <div class=" d-flex justify-content-center m-4">
+        <div class="card card-photo sm-12">
+            <div class="card-body">
+                <div class="image d-flex flex-column align-items-center">
+
+                    <img id="account-img"
+                         {% if user.photo is defined and user.photo and  user.photo.isValid %}
+                             src =" {{ user.photo.getFullUrl() }}"
+                         {% else %}
+                             src="{{ asset("assets/img/avatar.jpg") }}"
+                         {% endif %}
+                         width="200">
+                    <span class="label"><i><iconify-icon data-icon="bx:bx-image-add"></iconify-icon></i></span>
+                </div>
+                {{ form_start(form, {'attr': {'id': 'profile-form'}}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+        <div class="card card-info sm-12 d-flex">
+            <div class="card-body">
+                <div class="row">
+                    <div class="sm-5">
+                        <h6 class="mb-0">Nom et prénom</h6>
+                    </div>
+                    <div class="sm-5 text-secondary">
+                        {{ user.nom ~ " " ~ user.prenom }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="sm-5">
+                        <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="sm-5 text-secondary">
+                        {{user.email}}
+                    </div>
+                </div>
+                <hr>
+                {% if userManager.isOperateur() %}
+                <div class="row">
+                    <div class="sm-5">
+                        <h6 class="mb-0">Role</h6>
+                    </div>
+                    <div class="sm-5 text-secondary">
+                        {{ user.getRolesString() | raw }}
+                    </div>
+                </div>
+                <hr>
+                {% elseif userManager.isEtudiant() %}
+                    <div class="row">
+                        <div class="sm-5">
+                            <h6 class="mb-0">Niveau</h6>
+                        </div>
+                        <div class="sm-5 text-secondary">
+                            {{ user.filiere.getFiliere ~ user.niveau.getNiveau }}
+                        </div>
+                    </div>
+                    <hr>
+                {% elseif userManager.isEnseignant() %}
+                    <div class="row">
+                        <div class="sm-5">
+                            <h6 class="mb-0">Département</h6>
+                        </div>
+                        <div class="sm-5 text-secondary">
+                            {{ user.getDepartement().getNom() }}
+                        </div>
+                    </div>
+                    <hr>
+                {% endif %}
+            </div>
+            <div class="btn btn-outline-primary">
+                Modifier votre mot de passe
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $("#profile-form").on("change", function(){
+                var formData = new FormData(this);
+                $.ajax({
+                    url  : "{{ path('updateProfilePhoto') }}",
+                    type : "POST",
+                    cache: false,
+                    contentType : false, // you can also use multipart/form-data replace of false
+                    processData: false,
+                    data: formData,
+                    success:function(response){
+                        $("#account-img").attr("src", response);
+                    }
+                });
+            });
+        });
+
+        $('div.image').on('click', function() {
+            $('input#profile_photo_image').trigger('click');
+        });
+
+    </script>
+{% endblock %}

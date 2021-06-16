@@ -1,0 +1,37 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Icon</th>
+                <th>CssClass</th>
+                <th>Url</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for social_media in social_media %}
+            <tr>
+                <td>{{ social_media.id }}</td>
+                <td>{{ social_media.nom }}</td>
+                <td>{{ social_media.icon }}</td>
+                <td>{{ social_media.cssClass }}</td>
+                <td>{{ social_media.url }}</td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('social_media_show', {'id': social_media.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('social_media_edit', {'id': social_media.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('social_media_new') }}">Create new</a>
+{% endblock %}

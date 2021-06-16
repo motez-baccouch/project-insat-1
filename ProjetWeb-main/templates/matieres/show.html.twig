@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ matiere_niveau_filiere.id }}</td>
+            </tr>
+            <tr>
+                <th>Matière</th>
+                <td>{{ matiere_niveau_filiere.matiere.nom }}</td>
+            </tr>
+            <tr>
+                <th>Filière</th>
+                <td>{{ matiere_niveau_filiere.filiere.filiere }}</td>
+            </tr>
+            <tr>
+                <th>Niveau</th>
+                <td>{{ matiere_niveau_filiere.niveau.getNiveauName() }}</td>
+            </tr>
+            <tr>
+                <th>Semestre</th>
+                <td>{{ matiere_niveau_filiere.semestre }}</td>
+            </tr>
+            <tr>
+                <th>Coefficient</th>
+                <td>{{ matiere_niveau_filiere.coefficient }}</td>
+            </tr>
+            <tr>
+                <th>Ds</th>
+                <td>{{ matiere_niveau_filiere.ds ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Tp</th>
+                <td>{{ matiere_niveau_filiere.tp ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Examen</th>
+                <td>{{ matiere_niveau_filiere.examen ? 'Oui' : 'Non' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('matieres_edit', {'id': matiere_niveau_filiere.id}) }}">edit</a>
+    <br>
+    <a class="btn btn-secondary form-btn" href="{{ path('matieres_index') }}">back to list</a>
+
+
+    {{ include('matieres/_delete_form.html.twig') }}
+{% endblock %}

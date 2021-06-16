@@ -1,0 +1,31 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for departement in departements %}
+            <tr>
+                <td>{{ departement.id }}</td>
+                <td>{{ departement.nom }}</td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('departement_show', {'id': departement.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('departement_edit', {'id': departement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('departement_new') }}">Create new</a>
+{% endblock %}

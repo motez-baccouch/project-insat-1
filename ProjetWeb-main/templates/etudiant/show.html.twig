@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>NumInscription</th>
+                <td>{{ etudiant.numInscription }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ etudiant.email }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etudiant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ etudiant.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Niveau</th>
+                <td>{{ etudiant.niveau.getNiveauName2(etudiant.filiere) }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+    <br>
+    <a class="btn btn-secondary form-btn" href="{{ path('etudiant_index') }}">back to list</a>
+
+    {{ include('etudiant/_delete_form.html.twig') }}
+{% endblock %}

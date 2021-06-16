@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('matiere/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-secondary form-btn" href="{{ path('matiere_index') }}">back to list</a>
+
+    {{ include('matiere/_delete_form.html.twig') }}
+{% endblock %}

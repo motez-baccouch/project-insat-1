@@ -1,0 +1,52 @@
+<nav id="navbar" class="navbar order-last order-lg-0">
+    <ul>
+        <li><a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a></li>
+        <li><a class="nav-link scrollto" href="/#tabs">A propos</a></li>
+        <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
+        <li class="dropdown"><a class="nav-link">Services<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
+            <ul>
+                <li><a class="nav-link" href="/actualites">Actualités</a></li>
+                <li><a class="nav-link" href="/emplois">Emplois du temps</a></li>
+                <li><a class="nav-link" href="/documents">Documents Utiles</a></li>
+            </ul>
+        </li>
+        {% if  userManager.isAuthenticated() %}
+            <li class="dropdown"><a class="nav-link"><i class="x2"><iconify-icon data-icon="ic:sharp-account-circle"></iconify-icon></i>Mon Compte<i><iconify-icon data-icon="bi:chevron-down"></iconify-icon></i></a>
+                {%  set userMenu = userManager.getUserMenu() %}
+                <ul class="user-menu user-menu-{{ userMenu.getColumns() }}">
+                    {% for section in userMenu.sections %}
+                        {% for item in section.menuItems %}
+                            <li><a class="nav-link" href="{{ path(item.routeName, item.parameters) }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                        <hr>
+                    {% endfor %}
+                    <li><a class="nav-link" href="{{ path('profil') }}">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a></li>
+                    <li><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<iconify-icon data-icon="ic:baseline-log-out"></iconify-icon></a></li>
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+    {% if not userManager.isAuthenticated() %}
+        <a id ="loginButton" href="#" class="log-in-btn" data-bs-toggle="modal" data-bs-target="#LogInModal">Connexion</a>
+    {% endif %}
+    <i class="bi bi-list mobile-nav-btn"></i>
+    <div id="mySidenav" class="sidenav">
+        <i class="closebtn"><iconify-icon data-icon="line-md:arrow-close-right"></iconify-icon></i>
+        <a class="nav-link scrollto {% if homepage is defined %} active {% endif %}" href="/#welcome">Acceuil</a>
+        <a class="nav-link scrollto" href="/#tabs">A propos</a>
+        <a class="nav-link scrollto" href="/#contact">Contact</a>
+        <a href="/actualites">Actualités</a>
+        <a href="/emplois">Emplois du temps</a>
+        <a href="/documents">Documents Utiles</a>
+        {% if  userManager.isAuthenticated() %}
+            {% for section in userMenu.sections %}
+                {% for item in section.menuItems %}
+                    <a class="nav-link" href="{{ path(item.routeName, item.parameters) }}">{{ item.title }}</a>
+                {% endfor %}
+            {% endfor %}
+            <hr>
+            <a class="nav-link" href="{{ path('profil') }}">Mon profil<iconify-icon data-icon="clarity:settings-solid"></iconify-icon></a>
+            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion<iconify-icon data-icon="ic:baseline-log-out"></iconify-icon></a>
+        {% endif %}
+    </div>
+</nav>

@@ -1,0 +1,33 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Niveau</th>
+                <th>Ordre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for niveau in niveaux %}
+            <tr>
+                <td>{{ niveau.id }}</td>
+                <td>{{ niveau.getNiveauName() }}</td>
+                <td>{{ niveau.ordre }}</td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('niveau_show', {'id': niveau.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('niveau_edit', {'id': niveau.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('niveau_new') }}">Create new</a>
+{% endblock %}

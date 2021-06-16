@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ parametres.id }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ parametres.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ parametres.tel }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ parametres.fax }}</td>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <td>{{ parametres.email }}</td>
+            </tr>
+            <tr>
+                <th>Année Scolaire courante</th>
+                <td>{{ parametres.anneScolaireCourante }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('parametres_edit') }}">edit</a>
+
+{% endblock %}

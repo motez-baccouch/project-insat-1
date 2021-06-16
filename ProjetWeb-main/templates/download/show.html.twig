@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ download.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ download.titre }}</td>
+            </tr>
+            <tr>
+                <th>Ordre</th>
+                <td>{{ download.ordre }}</td>
+            </tr>
+            <tr>
+                <th>Document</th>
+                <td>
+                    {% if download.doc is defined and download.doc %}
+                        <a target="_blank" href="{{ asset(download.doc.getFullUrl()) }}">
+                            <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('download_edit', {'id': download.id}) }}">edit</a>
+    <br>
+    <a class="btn btn-secondary form-btn" href="{{ path('download_index') }}">back to list</a>
+
+    {{ include('download/_delete_form.html.twig') }}
+{% endblock %}

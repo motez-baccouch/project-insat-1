@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('departement/_form.html.twig') }}
+
+    <a class="btn btn-secondary form-btn" href="{{ path('departement_index') }}">back to list</a>
+{% endblock %}

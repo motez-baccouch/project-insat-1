@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="dep semestres" data-aos="fade-up">
+        <ul class="dep-list">
+            {% for i in range(1,2) %}
+            <li>
+                <a data-bs-toggle="collapse" class="{% if i == 2  %}collapsed{% endif%} d-flex justify-content-center" data-bs-target="#sem{{ i }}"
+                   {% if i == 1 %}aria-expanded="true{% else %}aria-expanded="false{% endif%}">
+                    Semestre {{ i }}
+                    <i class="icon-show">
+                        <iconify-icon data-icon="akar-icons:chevron-down"></iconify-icon>
+                    </i>
+                    <i class="icon-close">
+                        <iconify-icon data-icon="akar-icons:chevron-up"></iconify-icon>
+                    </i>
+                </a>
+                <div id="sem{{ i }}" class="collapse {% if i == 1 %}show{% endif%}" data-bs-parent=".dep-list">
+                    <br>
+                    <div class="btn-group d-flex justify-content-center">
+                        {% if i == 1  %}
+                        {% set sem = sem1 %}
+                        {% else %}
+                            {% set sem = sem2 %}
+                        {% endif %}
+                        {% for emploi in sem  %}
+                            {% if emploi.doc is defined and emploi.doc %}
+                                <a
+                                   href="{{ asset(emploi.doc.getFullUrl()) }}" target="_blank">{{ emploi.filiere.filiere }}
+                                </a>
+                            {% else %}
+                                <a
+                                        href="javascript:alert('Emploi de temps pas encore défini');">{{ emploi.filiere.filiere }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

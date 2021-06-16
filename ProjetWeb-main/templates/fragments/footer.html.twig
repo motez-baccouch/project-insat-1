@@ -1,0 +1,43 @@
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6  footer-element footer-contact">
+                    <h3><span>In</span>sat</h3>
+                    <p>
+                        {{ appDataManager.parametres.getformattedAdresse() | raw}}
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6  footer-element footer-contact">
+                    <h4>Contact</h4>
+                    <p>
+                        <strong>Tél :</strong>{{ appDataManager.parametres.tel | raw}}<br>
+                        <strong>Fax :</strong>{{  appDataManager.parametres.fax | raw}}<br>
+                        <strong>Email :</strong>{{  appDataManager.parametres.email | raw}}<br>
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-6  footer-element footer-links">
+                    <h4>Liens Utiles</h4>
+                    <ul>
+                        {% for link in appDataManager.links %}
+                            <li>
+                                <iconify-icon data-icon="bx:bx-chevron-right"></iconify-icon>
+                                </i> <a href="{{ link.url | raw}}" target="_blank">{{ link.nom | raw}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class=" col-lg-4 col-md-6  footer-element social-links ">
+                    <h4>Suivez Nous</h4><br>
+                    {% for sm in appDataManager.socialMedias %}
+                        <a href="{{ sm.url }}" target="_blank" class="{{ sm.cssClass }}"><i><iconify-icon data-icon="{{ sm.icon }}"></iconify-icon></i></a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

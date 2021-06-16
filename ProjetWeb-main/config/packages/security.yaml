@@ -1,0 +1,44 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            lazy: true
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\UserAuthAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+    #Creating roles hierarchy
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_OPERATEUR
+        ROLE_OPERATEUR: [ ROLE_SCOLARITE, ROLE_VALIDATEUR , ROLE_EDITEUR_SITE , ROLE_EDITEUR_BASE ]
+        ROLE_VALIDATEUR: ROLE_SCOLARITE
+        ROLE_EDITEUR_BASE: ROLE_EDITEUR_SITE
+
+            # activate different ways to authenticate
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/operateur, roles: ROLE_OPERATEUR }
+        - { path: ^/profile , roles: ROLE_USER }
+        - { path: ^/allusers, roles: ROLE_ADMIN }
+
+
+

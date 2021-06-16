@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ operateur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ operateur.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ operateur.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ operateur.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>
+                    {% for role in operateur.roles %}
+                        {{ role }}
+                        <br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('operateur_edit', {'id': operateur.id}) }}">edit</a>
+    <br>
+    <a class="btn btn-secondary form-btn" href="{{ path('operateur_index') }}">back to list</a>
+
+
+    {{ include('operateur/_delete_form.html.twig') }}
+{% endblock %}

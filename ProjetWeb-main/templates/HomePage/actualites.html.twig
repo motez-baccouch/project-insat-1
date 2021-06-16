@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main id="main">
+
+    <section id="blog" class="blog container" data-aos="fade-up">
+
+        <div class="articles flex-wrap d-flex justify-content-center">
+        {% for actualite in actualites %}
+        <article class="entry">
+            <div class="entry-img">
+                <img src="{{asset(actualite.photo.getFullUrl())}}" alt="" class="img-fluid">
+            </div>
+                        <h2 class="entry-title">
+
+                            <a {% if actualite.doc is defined and actualite.doc %}
+                                    href="{{ asset(actualite.doc.getFullUrl()) }}"
+                                {% endif%}  >
+                                {{ actualite.titre }}
+                            </a>
+                        </h2>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time>{{ actualite.date.format("d M Y") }}</time></li>
+                            </ul>
+                        </div>
+
+                        <div class="entry-content">
+                            <p>
+                                 {{ actualite.getFormattedDescription() | raw }}
+                            </p>
+                        </div>
+
+        </article><!-- End blog entry -->
+        {% endfor %}
+        </div>
+
+            <div class="knp d-flex justify-content-center" data-aos="fade-up">
+                {{ knp_pagination_render(actualites) }}
+            </div>
+
+
+        </section>       <!-- End blog entries list -->
+</main>
+<!-- End #main -->
+{% endblock %}

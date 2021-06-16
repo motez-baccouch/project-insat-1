@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('niveau/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class="btn btn-secondary form-btn" href="{{ path('niveau_index') }}">back to list</a>
+
+    {{ include('niveau/_delete_form.html.twig') }}
+{% endblock %}

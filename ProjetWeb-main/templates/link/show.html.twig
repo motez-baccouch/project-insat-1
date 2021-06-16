@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ link.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ link.nom }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ link.url }}</td>
+            </tr>
+            <tr>
+                <th>Ordre</th>
+                <td>{{ link.ordre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('link_edit', {'id': link.id}) }}">edit</a>
+    <br>
+    <a class="btn btn-secondary form-btn" href="{{ path('link_index') }}">back to list</a>
+
+
+    {{ include('link/_delete_form.html.twig') }}
+{% endblock %}

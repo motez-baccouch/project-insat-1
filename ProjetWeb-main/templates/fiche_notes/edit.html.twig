@@ -1,0 +1,10 @@
+{% extends 'fiche_notes/fiche_note.html.twig' %}
+
+{% block body %}
+
+    {{ include('fiche_notes/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('fiche_notes_index') }}">back to list</a>
+
+    {{ include('fiche_notes/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Ordre</th>
+                <th>Document</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for download in downloads %}
+            <tr>
+                <td>{{ download.id }}</td>
+                <td>{{ download.titre }}</td>
+                <td>{{ download.ordre }}</td>
+                <td>
+                    {% if download.doc is defined and download.doc %}
+                        <a target="_blank" href="{{ asset(download.doc.getFullUrl()) }}">
+                            <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('download_show', {'id': download.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('download_edit', {'id': download.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('download_new') }}">Create new</a>
+{% endblock %}

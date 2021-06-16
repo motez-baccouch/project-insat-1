@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+
+{{ include('matieres/_form.html.twig') }}
+
+    <a class="btn btn-secondary form-btn" href="{{ path('matieres_index') }}">back to list</a>
+</div>
+{% endblock %}

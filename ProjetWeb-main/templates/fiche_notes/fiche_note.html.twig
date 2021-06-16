@@ -1,0 +1,13 @@
+{% extends 'jQuery.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+            $(document).ready(function(){
+            $("#fiche_notes_tmpSemestre input, #fiche_notes_tmpFiliereNiveau").on("change", function(){
+                alert("xxx")
+            });
+        });
+
+    </script>
+{% endblock %}

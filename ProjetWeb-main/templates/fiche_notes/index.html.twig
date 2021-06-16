@@ -1,0 +1,37 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Commentaire</th>
+                {% if userManager.isEnseignant() %}
+                <th>actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for fiche_note in fiche_notes %}
+            <tr>
+                <td>{{ fiche_note.id }}</td>
+                <td>{{ fiche_note.commentaire }}</td>
+                {% if userManager.isEnseignant() %}
+                <td>
+                    <a href="{{ path('fiche_notes_show', {'id': fiche_note.id}) }}">show</a>
+                    <a href="{{ path('fiche_notes_edit', {'id': fiche_note.id}) }}">edit</a>
+                </td>
+                {% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if userManager.isEnseignant() %}
+    <a href="{{ path('fiche_notes_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

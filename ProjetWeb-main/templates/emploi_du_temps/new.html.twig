@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('emploi_du_temps/_form.html.twig') }}
+
+    <a class="btn btn-secondary form-btn" href="{{ path('emploi_du_temps_index') }}">back to list</a>
+{% endblock %}

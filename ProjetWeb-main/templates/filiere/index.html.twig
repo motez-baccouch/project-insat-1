@@ -1,0 +1,35 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+
+    <table class="table" class="display">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Filiere</th>
+                <th>Ordre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for filiere in filieres %}
+            <tr>
+                <td>{{ filiere.id }}</td>
+                <td>{{ filiere.filiere }}</td>
+                <td>{{ filiere.ordre }}</td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('filiere_show', {'id': filiere.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('filiere_edit', {'id': filiere.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('filiere_new') }}">Create new</a>
+
+{% endblock %}

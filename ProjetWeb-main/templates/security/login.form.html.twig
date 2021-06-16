@@ -1,0 +1,20 @@
+<div class="mb-3 form-group">
+    <label for="mail-input" class="form-label">E-mail universitaire</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1"><i><iconify-icon data-icon="fa:user"></iconify-icon></i></span>
+        <input id="inputEmail"{% if last_username is defined %}  value="{{ last_username }}" {% endif %}name="email" type="email"  class="form-control" placeholder="xyz@insat.u-carthage.tn" aria-describedby="basic-addon1"  autocomplete="email" required autofocus>
+    </div>
+</div>
+<div class="mb-3 form-group">
+    <label for="password-input" class="form-label">Mot de passe</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">
+            <i><iconify-icon data-icon="fa:lock"></iconify-icon></i>
+        </span>
+        <input type="password" name="password" id="inputPassword" class="form-control"  placeholder="xxxxx" required>
+    </div>
+</div>
+<button type="submit" class="btn log-in-btn mx-auto d-block" >Se connecter</button>
+<input type="hidden" name="_csrf_token"
+       value="{{ csrf_token('authenticate') }}"
+>

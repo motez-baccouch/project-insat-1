@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="main">
+            <div class=" download-list container d-flex justify-content-center" data-aos="fade-up">
+                <ul>
+                    {% for download in downloads %}
+                        <li>
+                            <a class="" href="{{ download.doc.getFullUrl() }}" target="_blank">
+                                <i><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>{{ download.titre }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        <div class="knp d-flex justify-content-center" data-aos="fade-up">
+            {{ knp_pagination_render(downloads) }}
+        </div>
+    </main>
+{% endblock %}

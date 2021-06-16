@@ -1,0 +1,47 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Matière</th>
+                <th>Filière</th>
+                <th>Niveau</th>
+                <th>Semestre</th>
+                <th>Coefficient</th>
+                <th>Ds</th>
+                <th>Tp</th>
+                <th>Examen</th>
+                <th>Ordre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matiere_niveau_filiere in matiere_niveau_filieres %}
+            <tr>
+                <td>{{ matiere_niveau_filiere.id }}</td>
+                <td>{{ matiere_niveau_filiere.matiere.nom }}</td>
+                <td>{{ matiere_niveau_filiere.filiere.filiere }}</td>
+                <td>{{ matiere_niveau_filiere.niveau.getNiveauName() }}</td>
+                <td>{{ matiere_niveau_filiere.semestre }}</td>
+                <td>{{ matiere_niveau_filiere.coefficient }}</td>
+                <td>{{ matiere_niveau_filiere.ds ? 'Oui' : 'Non' }}</td>
+                <td>{{ matiere_niveau_filiere.tp ? 'Oui' : 'Non' }}</td>
+                <td>{{ matiere_niveau_filiere.examen ? 'Oui' : 'Non' }}</td>
+                <td>{{ matiere_niveau_filiere.ordre }}</td>
+                <td>
+                    <a class="btn btn-secondary form-btn" href="{{ path('matieres_show', {'id': matiere_niveau_filiere.id}) }}">show</a>
+                    <a class="btn btn-secondary form-btn" href="{{ path('matieres_edit', {'id': matiere_niveau_filiere.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('matieres_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'table.html.twig' %}
+
+{% block body %}
+
+    <form method="POST" id="my_form">
+    <table  class="table" >
+        <thead>
+        <tr>
+            <th>num_inscription</th>
+            <th>nom</th>
+            <th>prenom</th>
+            <th>note</th>
+        </tr>
+        </thead>
+        {% for etud in etudiants %}
+            <tr>
+                <td>{{ etud.etudiant.numInscription }}</td>
+
+                <td>{{ etud.etudiant.nom }}</td>
+                <td>{{ etud.etudiant.prenom }}</td>
+                <td><input type="text" id="my_form" name={{etud.etudiant.numInscription}} ></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+        <button class="btn btn-primary form-btn" type="submit" class="btn btn-default">Validate</button>
+    </form>
+{% endblock %}

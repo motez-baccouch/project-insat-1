@@ -1,0 +1,327 @@
+{% extends 'base.html.twig' %}
+
+
+{% block subHeader %}
+    <!-- ======= Welcome Section ======= -->
+    <section id="welcome">
+        <div id="welcome-carousel" class="carousel slide" data-bs-ride="carousel" data-interval="5000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#welcome-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                {% for i in range(1,3) %}
+                    <button type="button" data-bs-target="#welcome-carousel" data-bs-slide-to="{{i}}" aria-label="Slide {{ i+1}}"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner">
+                {% for i in range(1,4) %}
+                    <div class="carousel-item {% if i == 1 %}active {% endif %}">
+                        <img src="{{asset("assets/img/slideShow1/insat"~ i ~".jpg")}}" class="d-block w-100">
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#welcome-carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#welcome-carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="carousel-caption px-auto" data-aos="zoom-out" data-aos-delay="50">
+            <h1>L'institut National des Sciences Appliquées et de Technologie<br></h1>
+            <a href="#tabs" class="btn-get-started scrollto">A propos ></a>
+        </div>
+    </section>
+    <!-- ======= End of Welcome Section ======= -->
+{% endblock %}
+
+{% block body %}
+    <!-- ======= Main ======= -->
+    <main id="main">
+        <!-- ======= A propos Section ======= -->
+        <section id="tabs" class="tabs">
+            <div  data-aos="fade-up">
+                <ul class="nav nav-tabs row d-flex">
+                    <li id="tab1" class="nav-item col-3">
+                        <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#tab-1">
+                            <i><iconify-icon data-icon="fa-solid:university"></iconify-icon></i>
+                            <h4 class="d-none d-lg-block">Notre Institut</h4>
+                        </a>
+                    </li>
+                    <li id="tab2" class="nav-item col-3">
+                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-2">
+                            <i><iconify-icon data-icon="maki:college-11"></iconify-icon></i>
+                            <h4 class="d-none d-lg-block">Systéme éducatif</h4>
+                        </a>
+                    </li>
+                    <li id="tab3" class="nav-item col-3">
+                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-3">
+                            <i><iconify-icon data-icon="teenyicons:servers-outline"></iconify-icon></i>
+                            <h4 class="d-none d-lg-block">Départements</h4>
+                        </a>
+                    </li>
+                    <li id="tab4" class="nav-item col-3">
+                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-4">
+                            <i><iconify-icon data-icon="fa-solid:user-graduate"></iconify-icon></i>
+                            <h4 class="d-none d-lg-block">Vie étudiante</h4>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="tab-1">
+                        <div class="row">
+                            <div class="col-xl-8 col-ms-12" data-aos="fade-up" data-aos-delay="100">
+                                <h3>L'institut National des Sciences Appliquées et de la Technologie :</h3>
+                                <br>
+                                <p>
+                                    Créé en 1992 (loi n°92-102 du 02 novembre 1992), est une institution publique affiliée à l'Université de Carthage et placée sous la tutelle du Ministère de l’Enseignement Supérieur et de la Recherche Scientifique.
+                                <ul>
+                                    <li>
+                                        <i><iconify-icon data-icon="ri:check-double-line"></iconify-icon></i> Dispense un enseignement supérieur ayant pour objet la formation de cadres hautement qualifiés dans les domaines de l’ingénierie et de la
+                                        technologie pour les secteurs publics et privés de la vie économique et de la recherche.
+                                    </li>
+                                    <li>
+                                        <i><iconify-icon data-icon="ri:check-double-line"></iconify-icon></i> Participe à la formation continue des ingénieurs et à la mission de diffusion de la culture scientifique et technique.
+                                    </li>
+                                </ul>
+                                </p>
+                            </div>
+                            <div class="col-xl-4  col-lg-12  side" data-aos="fade-up" data-aos-delay="200">
+                                <div id="slideshow1" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        <button type="button" data-bs-target="#slideshow1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                        <button type="button" data-bs-target="#slideshow1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                        <button type="button" data-bs-target="#slideshow1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                    </div>
+                                    <div class="carousel-inner">
+                                        {% for i in range(1,3) %}
+                                            <div class="carousel-item {% if i == 1 %}active {% endif %}">
+                                                <img src="{{asset("assets/img/slideShow2/insat-"~ i ~".jpg")}}" class="d-block w-100 side-img">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#slideshow1" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#slideshow1" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" tab-pane" id="tab-2">
+                        <h3>Cycle préparatoire intégré :</h3>
+                        <br>
+                        <p>
+                            L'admission à l'INSAT est très compétitive et les étudiants doivent avoir une bonne moyenne pour être admis.<br> L'INSAT assure une formation sur une période de 5 ans : 2 ans de cycle préparatoire integré et aprés le concours
+                            sur dossier, 3 ans de cycle d’ingénieur. En commençant par 2 branches pour la 1ére année du préparatoire intégré :
+                        </p>
+                        <div class="row">
+                            <div id="filieres" class="col-xl-5 col-lg-12 " data-aos="fade-up" data-aos-delay="200">
+                                <ul>
+                                    <li><i><iconify-icon data-icon="ic:outline-science"></iconify-icon></i> Chimie et biologie appliquée (CBA).</li>
+                                    <li><i><iconify-icon data-icon="tabler:math-function"></iconify-icon></i> Math-Physique-Informatique (MPI).</li>
+                                </ul>
+                                <p>Puis en :</p>
+                                <ul>
+                                    <li><i><iconify-icon data-icon="file-icons:dna"></iconify-icon></i> Biologie industrielle (BIO) </li>
+                                    <li><i><iconify-icon data-icon="ic:outline-science"></iconify-icon></i> Chimie Industrielle (CH) </li>
+                                    <li><i><iconify-icon data-icon="uil:processor"></iconify-icon></iconify-icon></i> Informatique Industrielle et Automatique (IIA) </li>
+                                    <li><i><iconify-icon data-icon="fa-solid:wrench"></iconify-icon></i></i> Instrumentation et Maintenance Industrielle (IMI) </li>
+                                    <li><i><iconify-icon data-icon="bx:bx-code-alt"></iconify-icon></i> Génie Logiciel (GL) </li>
+                                    <li><i><iconify-icon data-icon="si-glyph:network-2"></iconify-icon></iconify-icon></i> Réseaux et Télécommunication (RT) </li>
+                                </ul>
+                            </div>
+                            <div id="diagram" class="col-xl-7 col-lg-12 " data-aos="fade-up" data-aos-delay="200">
+                                <img id="cba" src="{{asset('assets/img/CBA.jpg')}}" class="zoomable">
+                                <img id="mpi" src="{{asset('assets/img/MPI.jpg')}}" class="zoomable">
+
+                                <div id="cbaModal" class="modal">
+                                    <span class="close"><iconify-icon data-icon="ant-design:close-circle-filled"></iconify-icon></span>
+                                    <img class="modal-content">
+                                </div>
+                                <div id="mpiModal" class="modal">
+                                    <span class="close"><iconify-icon data-icon="ant-design:close-circle-filled"></iconify-icon></span>
+                                    <img class="modal-content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " id="tab-3">
+                        <div class="row">
+                            <div class="col-md-3 col-ms-12 ">
+                                <div id="counts" class="container counts" data-aos="fade-up">
+                                    <div class="row">
+                                        <div class="col-md-12 col-6">
+                                            <div class="count-box">
+                                                <i><iconify-icon data-icon="teenyicons:servers-outline"></iconify-icon></i>
+                                                <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
+                                                <span id="label">Départements</span>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-12  col-6">
+                                            <div class="count-box">
+                                                <i><iconify-icon data-icon="fa-solid:chalkboard-teacher"></iconify-icon></i>
+                                                <span data-purecounter-start="0" data-purecounter-end="187" data-purecounter-duration="0.5" class="purecounter"></span>
+                                                <span id="label">Enseignants</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-ms-12">
+                                <div id="dep" class="dep" data-aos="fade-up">
+                                    <ul class="dep-list accordion" data-aos="fade-up">
+                                        <li>
+                                            <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#dep1">
+                                                Département de Génie Physique et Instrumentation
+                                                <i class="icon-show"><iconify-icon data-icon="akar-icons:chevron-down"></iconify-icon></i>
+                                                <i class="icon-close"><iconify-icon data-icon="akar-icons:chevron-up"></iconify-icon></i>
+                                            </a>
+                                            <div id="dep1" class="collapse" data-bs-parent=".dep-list">
+                                                <p>
+                                                    Ce Departement propose, après une année MPI, le choix entre deux options (IIA ou IMI). Cette formation de qualité, à finalité professionnelle, est fort appréciée des industriels.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a data-bs-toggle="collapse" data-bs-target="#dep2" class="collapsed">
+                                                Département de Génie Informatique et Mathématiques
+                                                <i class="icon-show"><iconify-icon data-icon="akar-icons:chevron-down"></iconify-icon></i>
+                                                <i class="icon-close"><iconify-icon data-icon="akar-icons:chevron-up"></iconify-icon></i>
+                                            </a>
+                                            <div id="dep2" class="collapse" data-bs-parent=".dep-list">
+                                                <p>
+                                                    Ses activités consistent à mobiliser et gérer les ressources nécessaires pour l’enseignement des disciplines informatique et mathématiques durant le cursus des élèves ingénieurs de l’INSAT
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a data-bs-toggle="collapse" data-bs-target="#dep3" class="collapsed">
+                                                Département de Génie Biologique et de Chimie
+                                                <i class="icon-show"><iconify-icon data-icon="akar-icons:chevron-down"></iconify-icon></i>
+                                                <i class="icon-close"><iconify-icon data-icon="akar-icons:chevron-up"></iconify-icon></i>
+                                            </a>
+                                            <div id="dep3" class="collapse" data-bs-parent=".dep-list">
+                                                <p>
+                                                    Ce Departement propose, après une année CBA, le choix entre deux options (CH ou BIO) et a pour objectif de former des ingénieurs aptes à maîtriser les méthodes d’analyses chimiques et biologiques, dans un secteur industriel ou pharmaceutique.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a data-bs-toggle="collapse" data-bs-target="#dep4" class="collapsed">
+                                                Département de Sciences Sociales, Langues et Formation Générale
+                                                <i class="icon-show"><iconify-icon data-icon="akar-icons:chevron-down"></iconify-icon></i>
+                                                <i class="icon-close"><iconify-icon data-icon="akar-icons:chevron-up"></iconify-icon></i>
+                                            </a>
+                                            <div id="dep4" class="collapse" data-bs-parent=".dep-list">
+                                                <p>
+                                                    Ce Departement propose une formation autour de l’économie, de la gestion, du droit, de la sociologie et des langues. Ces disciplines occupent une place tout à fait centrale dans la formation de l’ingénieur. L’INSAT poursuit l’objectif ambitieux de donner
+                                                    à ses élèves une double formation, à la fois technique et managérial.
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-4">
+                        <h3>La vie associative :</h3>
+                        <br>
+                        <p> À l'INSAT l'étudiant aura non seulement la formation de l'ingénierie mais aussi une formation qui lui permet d’apprendre à vivre en société et d’acquérir la compétence de développer le savoir-faire et le savoir-être pour se préparer
+                            à l’insertion professionnelle.<br> En fait, derrière ses murs rouges vous pouvez mettre votre passion dans n'importe quel intérêt imaginable, de la musique et du théâtre à la robotique et aux services de communité grâce aux
+                            clubs et leurs activités :
+                        </p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div id="clubs" class="clubs">
+                <div class="clubs-slider swiper-container">
+                    <div class="swiper-wrapper align-items-center">
+                        {% for i in range(1,14) %}
+                            <div class="swiper-slide"><img src="{{asset("assets/img/clubs/club-"~i~".png")}}" class="img-fluid"></div>
+                        {% endfor %}
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+        </section>
+        <!-- ======= End of A propos Section ======= -->
+
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+            <div data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Contact</h2>
+                </div>
+                <div class="row" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-lg-6">
+                        <div class="col-md-12">
+                            <div class="info-box">
+                                <i><iconify-icon data-icon="bx:bx-map"></iconify-icon>  </i>
+                                <h3>Notre Adresse</h3>
+                                <div class="mapouter">
+                                    <div class="gmap_canvas">
+                                        <iframe width="95%" height="350"
+                                                id="gmap_canvas"
+                                                src="https://maps.google.com/maps?q=676%20INSAT%20Centre%20Urbain%20Nord%20BP%D8%8C%20Tunis%20Cedex%201080&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no"
+                                                marginheight="0" marginwidth="0">
+
+                                        </iframe><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="col-md-12">
+                            {% for label, messages in app.flashes %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ label }}">
+                                        <div class="container">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                            <form class=" php-email-form info-box" method="POST" action="{{ path("contact") }}">
+                                <i><iconify-icon data-icon="ant-design:mail-outlined"></iconify-icon></i>
+                                <h3>Contactez Nous</h3>
+                                <div class="row">
+                                    <div class="col form-group">
+                                        <input type="text" name="name" class="form-control" id="name" placeholder="Votre nom" required>
+                                    </div>
+                                    <div class="col form-group">
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="Votre e-mail" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Sujet" required>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                                </div>
+                                <div class="text-center"><button type="submit" name="submit">Envoyer</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ======= End of Contact Section ======= -->
+    </main>
+    <!-- ======= End of Main ======= -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $("#flash-fade").delay(1500).fadeOut(1500);
+    </script>
+{% endblock %}

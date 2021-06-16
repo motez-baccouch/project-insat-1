@@ -1,0 +1,37 @@
+{% set title = 'Connexion' %}
+{% extends 'base.html.twig' %}
+
+{% block loginModal %}{% endblock %}
+{% block htmlCss %}login-form{% endblock %}
+
+{% block body %}
+
+        <div id="LogInModal" class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="w-100 modal-title">
+                        <img src="{{asset('assets/img/favicon.png')}}" class="w-100 "> Connexion
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form method="Post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="mb-3">
+                                You are logged in as {{ mapp.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %}
+                        {{ include("security/login.form.html.twig") }}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ path("app_forgot_password_request") }}">Mot de passe oublié ?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

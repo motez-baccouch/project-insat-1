@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" class="{% block htmlCss %}{% endblock %}">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <!-- ======= Favicons ======= -->
+        <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
+        <title>{% block title %}INSAT - {{ title }}{% endblock %}</title>
+
+        {% block stylesheets %}
+            <!-- ======= Google Fonts ======= -->
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+            <!-- ======= External CSS Files ======= -->
+            <link rel="stylesheet" href="{{asset('assets/external/bootstrap/css/bootstrap.min.css')}}" />
+            <link rel="stylesheet" href="{{asset('assets/external/aos/aos.css')}}" />
+            <link rel="stylesheet" href="{{asset('assets/external/bootstrap-icons/bootstrap-icons.css')}}" />
+            {% if homepage is defined %}
+                <link rel="stylesheet" href="{{asset('assets/external/swiper/swiper-bundle.min.css')}}" />
+            {% endif %}
+            <!-- ======= Main CSS File ======= -->
+            <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
+
+        {% endblock %}
+
+
+    </head>
+
+    <body>
+        {% if homepage is defined and homepage %}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div id ="flash-fade" class="alert alert-{{ label }}">
+                        <div class="container">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        {% block header %}
+            <header id="header" class="fixed-top d-flex align-items-center">
+                <div class="container-fluid d-flex align-items-center inner-header">
+                    <div class="logo me-auto">
+                        <a href="/"><img id="logo" src="{{asset('assets/img/favicon.png')}}" /> <img src="{{asset('assets/img/logo_v4.jpg')}}"></a>
+                    </div>
+                    <!-- ======= NavBar ======= -->
+                    {{ include('fragments/navbar.html.twig') }}
+                    <!-- ======= End Of NavBar ======= -->
+                </div>
+            </header>
+        {% endblock %}
+
+        <div class="container-fluid outer-content">
+            {% block subHeader%}
+            <div class="main-title">
+                <div class="container">
+                    <h1>{{ title }}</h1>
+                </div>
+            </div>
+            {% endblock %}
+
+            {% block flashMessages %}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        <div class="container">
+                            {{ message }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endblock %}
+
+            <div class="container inner-content">
+            {% block body %}
+
+            {% endblock %}
+            </div>
+        </div>
+
+        {% block footer %}
+        {{ include('fragments/footer.html.twig') }}
+            <!-- ======= Back To Top Button ======= -->
+            <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+                <i><iconify-icon data-icon="bi:arrow-up-short"></iconify-icon></i>
+            </a>
+        {% endblock %}
+
+        {% block loginModal %}
+        {% if not userManager.isAuthenticated() %}
+            <!--===== Log in Modal ====-->
+            <div class="modal fade" id="LogInModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-header">
+                            <h4 class="w-100 modal-title">
+                                <img src="{{asset('assets/img/favicon.png')}}" class="w-100 "> Connexion
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="Post" action="{{ path('app_login')}}">
+                               {{ include ('security/login.form.html.twig') }}
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{{ path("app_forgot_password_request") }}">Mot de passe oublié ?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% endblock %}
+
+        {% block javascripts %}
+            <!-- ======= External JS Files ======= -->
+            <script src="{{asset('assets/external/aos/aos.js')}}"></script>
+            <script src="{{asset('assets/external/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+            <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+            {% if homepage is defined %}
+            <script src="{{asset('assets/external/purecounter/purecounter.js')}}"></script>
+            <script src="{{asset('assets/external/swiper/swiper-bundle.min.js')}}"></script>
+            {% endif %}
+            <!-- ======= Main JS File ======= -->
+            <script src="{{asset('assets/js/main.js')}}"></script>
+        {% endblock %}
+
+    </body>
+</html>

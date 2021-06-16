@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actualite.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ actualite.titre }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ actualite.date ? actualite.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ actualite.description }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>
+                    {% if actualite.photo is defined and actualite.photo %}
+                        <img class="list-img" src="{{ asset(actualite.photo.getFullUrl()) }}"/>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Document</th>
+                <td>
+                    {% if actualite.doc is defined and actualite.doc %}
+                        <a target="_blank" href="{{ asset(actualite.doc.getFullUrl()) }}">
+                            <i class="x4"><iconify-icon data-icon="fluent:document-pdf-32-filled"></iconify-icon></i>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary form-btn" href="{{ path('actualite_edit', {'id': actualite.id}) }}">edit</a>
+    <br>
+    <a class="btn btn-secondary form-btn" href="{{ path('actualite_index') }}">back to list</a>
+
+
+    {{ include('actualite/_delete_form.html.twig') }}
+{% endblock %}
